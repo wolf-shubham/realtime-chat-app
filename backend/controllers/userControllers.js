@@ -18,5 +18,23 @@ exports.loginController = function (req, res) {
 }
 
 exports.registerController = function (req, res) {
-    res.send('Hello World from user !!')
+    try {
+        const { name, username, email, password, displaypic } = req.body
+        const checkEmail = await User.findOne({ email })
+        if (checkEmail) {
+            return res.status(401).json({ message: 'user with that email already exists.' })
+        }
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const newUser = await new User({
+            name,
+            email,
+            password: hashedPassword,
+            displaypic
+        }).save()
+        const token = await newUser.generateToken()
+
+        return res.status(200).json({ message: 'user registered successfully', newUser, token })
+    } catch (error) {
+        return res.status(400).json({ message: 'user register failed.' })
+    }
 }
