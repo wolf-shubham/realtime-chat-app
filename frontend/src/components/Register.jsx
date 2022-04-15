@@ -11,7 +11,7 @@ const Register = () => {
         <>
             <div className="loginRight">
                 <form className='loginForm'>
-                    <h1 className='titleLogin'>Register</h1>
+                    <h1 className='titleLogin'>REGISTER</h1>
                     <TextField
                         variant="outlined"
                         margin="normal"
