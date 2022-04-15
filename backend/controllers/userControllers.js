@@ -21,13 +21,18 @@ exports.registerController = function (req, res) {
     try {
         const { name, username, email, password, displaypic } = req.body
         const checkEmail = await User.findOne({ email })
+        const checkUsername = await User.findOne({ username })
         if (checkEmail) {
             return res.status(401).json({ message: 'user with that email already exists.' })
+        }
+        if (checkUsername) {
+            return res.status(401).json({ message: 'UserName taken. Try another UserName.' })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
         const newUser = await new User({
             name,
             email,
+            username,
             password: hashedPassword,
             displaypic
         }).save()
