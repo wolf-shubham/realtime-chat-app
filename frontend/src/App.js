@@ -1,8 +1,10 @@
-import Login from './pages/Login'
+import Startup from './pages/Startup'
 
 function App() {
   return (
-    <Login />
+    <>
+      <Startup />
+    </>
   )
 }
 
