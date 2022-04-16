@@ -1,4 +1,8 @@
-exports.loginController = function (req, res) {
+const bcrypt = require('bcrypt')
+const User = require('../models/user')
+const generateToken = require('../config/generateToken')
+
+exports.loginController = async (req, res) => {
     try {
         const { email, password } = req.body
         const user = await User.findOne({ email })
@@ -9,7 +13,7 @@ exports.loginController = function (req, res) {
         if (!comparePassword) {
             return res.status(404).json({ message: 'invalid email or password.' })
         }
-        const token = await user.generateToken()
+        const token = generateToken(user._id)
         return res.status(200).json({ user, token, message: 'login successful.' })
 
     } catch (error) {
@@ -17,9 +21,9 @@ exports.loginController = function (req, res) {
     }
 }
 
-exports.registerController = function (req, res) {
+exports.registerController = async (req, res) => {
     try {
-        const { name, username, email, password, displaypic } = req.body
+        const { name, username, email, password } = req.body
         const checkEmail = await User.findOne({ email })
         const checkUsername = await User.findOne({ username })
         if (checkEmail) {
@@ -34,12 +38,12 @@ exports.registerController = function (req, res) {
             email,
             username,
             password: hashedPassword,
-            displaypic
         }).save()
-        const token = await newUser.generateToken()
+        const token = generateToken(newUser._id)
 
         return res.status(200).json({ message: 'user registered successfully', newUser, token })
     } catch (error) {
+        console.log(error);
         return res.status(400).json({ message: 'user register failed.' })
     }
 }
