@@ -44,6 +44,30 @@ exports.registerController = async (req, res) => {
         return res.status(200).json({ message: 'user registered successfully', newUser, token })
     } catch (error) {
         console.log(error);
-        return res.status(400).json({ message: 'user register failed.' })
+        return res.status(500).json({ message: 'User registration failed. Network error' })
     }
 }
+
+exports.searchUsers = async (req, res) => {
+    try {
+        const keyword = req.query.search ? {
+            $or: [
+                { name: { $regex: req.query.search, $options: 'i' } },
+                { username: { $regex: req.query.search, $options: 'i' } },
+                { email: { $regex: req.query.search, $options: 'i' } },
+            ]
+        } :
+            {
+                // $or: [
+                //     { name: { $regex: '^' } },
+                //     { username: { $regex: '^' } },
+                //     { email: { $regex: '^' } },
+                // ]
+            }
+        const users = await User.find(keyword)
+        // .find({ _id: { $ne: req.user._id } })
+        return res.status(200).json({ users })
+    } catch (error) {
+        return res.status(500).json({ message: 'network error' })
+    }
+}   
