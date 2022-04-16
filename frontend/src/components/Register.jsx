@@ -12,7 +12,6 @@ const Register = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(name, username, email, password)
         try {
             const config = {
                 headers: { 'Content-Type': 'application/json' }

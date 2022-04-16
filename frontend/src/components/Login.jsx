@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, FormControlLabel, TextField } from '@material-ui/core'
+import axios from 'axios'
 
 
 const Login = () => {
@@ -7,10 +8,26 @@ const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        try {
+            const config = {
+                headers: { 'Content-Type': 'application/json' }
+            }
+            const { data } = await axios.post('/user/login', {
+                email,
+                password
+            }, config)
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return (
         <>
             <div className="loginRight">
-                <form className='loginForm'>
+                <form className='loginForm' onSubmit={handleSubmit}>
                     <h1 className='titleLogin'>LOGIN</h1>
                     <TextField
                         variant="outlined"
