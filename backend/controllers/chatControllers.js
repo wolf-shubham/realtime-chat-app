@@ -44,3 +44,17 @@ exports.createChat = async (req, res) => {
     }
 }
 
+exports.fetchChats = async (req, res) => {
+    try {
+        var chats = await Chat.find({
+            users: { $elemMatch: { $eq: req.user._id } }
+        }).then(chats => {
+            return res.status(200).json({ chats })
+        }
+        )
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'network error', error })
+    }
+}
