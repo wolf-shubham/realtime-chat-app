@@ -1,9 +1,14 @@
 import React from 'react'
+import Chat from '../components/Chat'
+import Header from '../components/Header'
+import UserChats from '../components/UserChats'
 
 const Home = () => {
     return (
         <div>
-            <h1>Home Page</h1>
+            <Header />
+            <UserChats />
+            <Chat />
         </div>
     )
 }
