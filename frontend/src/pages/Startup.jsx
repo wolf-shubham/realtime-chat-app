@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
@@ -6,10 +6,20 @@ import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 import Login from '../components/Login';
 import Register from '../components/Register';
+import { useNavigate } from 'react-router-dom';
+
 
 const Startup = () => {
 
-    const [value, setValue] = React.useState('1');
+    const navigate = useNavigate()
+    const [value, setValue] = React.useState('1')
+
+    useEffect(() => {
+        const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+        if (userInfo) {
+            navigate('/home')
+        }
+    }, [navigate])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

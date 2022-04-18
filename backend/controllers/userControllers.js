@@ -33,15 +33,15 @@ exports.registerController = async (req, res) => {
             return res.status(401).json({ message: 'UserName taken. Try another UserName.' })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
-        const newUser = await new User({
+        const user = await new User({
             name,
             email,
             username,
             password: hashedPassword,
         }).save()
-        const token = generateToken(newUser._id)
+        const token = generateToken(user._id)
 
-        return res.status(200).json({ message: 'user registered successfully', newUser, token })
+        return res.status(200).json({ message: 'user registered successfully', user, token })
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'User registration failed. Network error' })

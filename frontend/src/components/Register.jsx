@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Button, Checkbox, FormControlLabel, TextField } from '@material-ui/core'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 const Register = () => {
+
+    const navigate = useNavigate()
 
     const [name, setName] = useState('')
     const [username, setUserName] = useState('')
@@ -23,6 +26,7 @@ const Register = () => {
                 password
             }, config)
             localStorage.setItem('userInfo', JSON.stringify(data))
+            navigate('/home')
         } catch (error) {
             console.log(error)
         }
@@ -85,7 +89,7 @@ const Register = () => {
                         variant="contained"
                         color="primary"
                     // disabled={loading}
-                    >LOGIN</Button>
+                    >REGISTER</Button>
                 </form>
                 {/* {error && <Error message={error} /> */}
             </div>
