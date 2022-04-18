@@ -4,7 +4,14 @@ import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
 
 function App() {
-  const isAuthenticated = false
+  var isAuthenticated = null
+  const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+  if (userInfo) {
+    isAuthenticated = true
+  } else {
+    isAuthenticated = false
+  }
+
   return (
     <>
       <div className="App">

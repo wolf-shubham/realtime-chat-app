@@ -22,7 +22,7 @@ const Register = () => {
                 email,
                 password
             }, config)
-            console.log(data)
+            localStorage.setItem('userInfo', JSON.stringify(data))
         } catch (error) {
             console.log(error)
         }

@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Checkbox, FormControlLabel, TextField } from '@material-ui/core'
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom'
 
 
 const Login = () => {
 
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    useEffect(() => {
+        const user = localStorage.getItem('userInfo')
+        if (user) {
+            navigate('/')
+        }
+    }, [navigate])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -18,7 +27,7 @@ const Login = () => {
                 email,
                 password
             }, config)
-            console.log(data)
+            localStorage.setItem('userInfo', JSON.stringify(data))
         } catch (error) {
             console.log(error)
         }
