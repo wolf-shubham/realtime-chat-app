@@ -122,3 +122,26 @@ exports.addToGroupChat = async (req, res) => {
         return res.status(500).json({ message: 'network error', error })
     }
 }
+
+exports.removeFromGroupChat = async (req, res) => {
+    try {
+        const { chatId, userId } = req.body
+        if (!chatId || !userId) {
+            return res.status(401).json({ message: 'chatId and userId are required' })
+        }
+        var chat = await Chat.findById(chatId)
+        if (!chat) {
+            return res.status(401).json({ message: 'chat not found' })
+        }
+        if (chat.isGroupChat) {
+            chat.users.pull(userId)
+            chat.save()
+            return res.status(200).json({ message: 'user removed from group' })
+        } else {
+            return res.status(401).json({ message: 'chat is not a group chat' })
+        }
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'network error', error })
+    }
+}
