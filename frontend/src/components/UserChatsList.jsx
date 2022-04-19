@@ -5,6 +5,7 @@ import SearchUser from './SearchUser'
 import SingleChat from './SingleChat'
 import { ChatState } from '../context/ChatProvider'
 import axios from 'axios'
+import CreateGroupChat from './CreateGroupChat'
 
 const UserChatsList = () => {
     // const { user } = ChatState()
@@ -14,10 +15,11 @@ const UserChatsList = () => {
 
 
     const [searchUser, setSearchUser] = useState(false)
+    const [createGroupChat, setCreateGroupChat] = useState(false)
     const [loading, setLoading] = useState(false)
 
 
-    const testData = JSON.parse(localStorage.getItem('userInfo'))
+    const loggedUser = JSON.parse(localStorage.getItem('userInfo'))
 
     const fetchChatofUsers = async () => {
         setLoading(true)
@@ -25,7 +27,7 @@ const UserChatsList = () => {
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${testData.token}`
+                    'Authorization': `Bearer ${loggedUser.token}`
                 }
             }
             const { data } = await axios.get('/chat', config)
@@ -56,6 +58,18 @@ const UserChatsList = () => {
                                 fontSize: '1.2rem'
                             }}></i>
                     </Button>
+                    <Button
+                        onClick={() => setCreateGroupChat(!createGroupChat)}
+                        sx={{ width: '75%' }}
+                        variant="contained"
+                        color="primary">
+                        Create group chat
+                        <i class="fa-solid fa-magnifying-glass"
+                            style={{
+                                marginLeft: '1rem',
+                                fontSize: '1.2rem'
+                            }}></i>
+                    </Button>
                 </div>
                 <div className='scrollBar'>
                     {loading ? <CircularProgress /> : null}
@@ -73,6 +87,9 @@ const UserChatsList = () => {
 
             <Dialog open={searchUser} onClose={() => setSearchUser(!searchUser)}>
                 <SearchUser />
+            </Dialog >
+            <Dialog open={createGroupChat} onClose={() => setCreateGroupChat(!createGroupChat)}>
+                <CreateGroupChat />
             </Dialog >
         </>
     )
