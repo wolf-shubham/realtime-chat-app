@@ -28,7 +28,7 @@ const Header = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0rem 2rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0rem 2rem', height: '13vh' }}>
                 <h1 style={{ color: 'white', fontFamily: font, letterSpacing: '3px', fontSize: '4rem', fontWeight: '500' }}>chatty...</h1>
                 <div style={{ width: '15%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                     <img src={user?.user.profilePicture} alt={user?.user.name} style={{ height: '2.5rem', width: '2.5rem', borderRadius: '50%' }} />
