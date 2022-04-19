@@ -32,7 +32,7 @@ exports.createChat = async (req, res) => {
                 const createdChat = await Chat.create(chatData)
                 const fullChat = await Chat.findById(createdChat._id)
                     .populate('users', '_id name username')
-                return res.status(200).json({ fullChat })
+                return res.status(200).json(fullChat)
             } catch (error) {
                 console.log(error);
                 return res.status(500).json({ message: 'network error in try block' })
@@ -57,7 +57,7 @@ exports.fetchChats = async (req, res) => {
                     path: 'lastMessage.sender',
                     select: '_id name username',
                 })
-                return res.status(200).json({ chatData })
+                return res.status(200).json(chatData)
             })
     } catch (error) {
         console.log(error);

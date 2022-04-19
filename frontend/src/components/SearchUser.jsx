@@ -6,12 +6,12 @@ import UserList from './UserList'
 
 const SearchUser = () => {
 
-    const { user } = ChatState()
+    const { user, setCreateChat, fetchChats, setFetchchats } = ChatState()
 
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
-
+    const [chatLoading, setChatLoading] = useState(false)
 
     const handleSearch = async () => {
         try {
@@ -33,6 +33,25 @@ const SearchUser = () => {
 
     const accessChat = (userId) => {
         console.log(userId)
+        try {
+            setChatLoading(true)
+            const config = {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${user?.token}`
+                }
+            }
+            const { data } = axios.post(`/chat`, { userId }, config)
+
+            if (!fetchChats.find(chat => chat.id === data.id)) {
+                setFetchchats([...fetchChats, data])
+            }
+
+            setCreateChat(data)
+            setChatLoading(false)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -83,10 +102,13 @@ const SearchUser = () => {
                         <UserList
                             key={user._id}
                             user={user}
-                            handleChatAccess={() => accessChat(user._id)}
+                            handleFunction={() => accessChat(user._id)}
                         />
                     ))
                 )
+            }
+            {
+                chatLoading ? <CircularProgress /> : null
             }
         </div>
     )

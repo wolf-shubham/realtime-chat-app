@@ -5,6 +5,7 @@ import UserChatsList from '../components/UserChatsList'
 import '../components/BorderBox.css'
 
 const Home = () => {
+
     return (
         <div>
             <Header />

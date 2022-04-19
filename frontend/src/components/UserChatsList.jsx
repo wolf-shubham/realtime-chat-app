@@ -1,13 +1,44 @@
-import React, { useState } from 'react'
-import Users from './Users'
+import React, { useEffect, useState } from 'react'
 import './Scrollbar.css'
-import { Button, Dialog } from '@mui/material'
+import { Button, CircularProgress, Dialog } from '@mui/material'
 import SearchUser from './SearchUser'
+import SingleChat from './SingleChat'
+import { ChatState } from '../context/ChatProvider'
+import axios from 'axios'
 
 const UserChatsList = () => {
     // const { user } = ChatState()
     // console.log(user);
+
+    const { user, createchat, setCreateChat, fetchChats, setFetchChats } = ChatState()
+
+
     const [searchUser, setSearchUser] = useState(false)
+    const [loading, setLoading] = useState(false)
+
+
+    const testData = JSON.parse(localStorage.getItem('userInfo'))
+
+    const fetchChatofUsers = async () => {
+        setLoading(true)
+        try {
+            const config = {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${testData.token}`
+                }
+            }
+            const { data } = await axios.get('/chat', config)
+            setFetchChats(data)
+            setLoading(false)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
+        fetchChatofUsers()
+    }, [])
 
     return (
         <>
@@ -27,9 +58,19 @@ const UserChatsList = () => {
                     </Button>
                 </div>
                 <div className='scrollBar'>
-                    <Users />
+                    {loading ? <CircularProgress /> : null}
+                    <div>
+                        {fetchChats.map(chat => (
+                            <SingleChat
+                                key={chat._id}
+                                user={chat}
+                            />
+                        ))}
+                    </div>
                 </div>
+
             </div>
+
             <Dialog open={searchUser} onClose={() => setSearchUser(!searchUser)}>
                 <SearchUser />
             </Dialog >
