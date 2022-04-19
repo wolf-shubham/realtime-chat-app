@@ -45,7 +45,7 @@ const UserChatsList = () => {
     return (
         <>
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-                <div style={{ height: '9vh', display: 'flex', justifyContent: 'center', paddingTop: '1rem' }}>
+                <div style={{ height: '15vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', }}>
                     <Button
                         onClick={() => setSearchUser(!searchUser)}
                         sx={{ width: '75%' }}
@@ -64,7 +64,7 @@ const UserChatsList = () => {
                         variant="contained"
                         color="primary">
                         Create group chat
-                        <i class="fa-solid fa-magnifying-glass"
+                        <i class="fa-solid fa-plus"
                             style={{
                                 marginLeft: '1rem',
                                 fontSize: '1.2rem'
