@@ -2,31 +2,37 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { ChatState } from '../context/ChatProvider'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import UserList from './UserList'
 
 const SearchUser = () => {
 
     const { user } = ChatState()
 
     const [search, setSearch] = useState('')
-    const [serachResult, setSearchResult] = useState([])
+    const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
 
+
     const handleSearch = async () => {
-        console.log('searching')
         try {
             setLoading(true)
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${user?.user.token}`
+                    'Authorization': `Bearer ${user?.token}`
                 }
             }
             const { data } = await axios.get(`/user?search=${search}`, config)
+            console.log(data)
             setLoading(false)
             setSearchResult(data)
         } catch (error) {
             console.log(error)
         }
+    }
+
+    const accessChat = (userId) => {
+        console.log(userId)
     }
 
     return (
@@ -73,9 +79,13 @@ const SearchUser = () => {
             </div>
             {
                 loading ? <CircularProgress /> : (
-                    serachResult.map(user => {
-
-                    })
+                    searchResult?.map((user) => (
+                        <UserList
+                            key={user._id}
+                            user={user}
+                            handleChatAccess={() => accessChat(user._id)}
+                        />
+                    ))
                 )
             }
         </div>
