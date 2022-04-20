@@ -10,8 +10,8 @@ exports.createChat = async (req, res) => {
         var chats = await Chat.find({
             isGroupChat: false,
             $and: [
-                { users: { $elemMatch: { $eq: userId } } },
-                { users: { $elemMatch: { $eq: req.user._id } } }
+                { users: { $elemMatch: { $eq: req.user._id } } },
+                { users: { $elemMatch: { $eq: userId } } }
             ]
         }).populate('users', '_id name username')
             .populate('lastMessage', '_id message createdAt')
@@ -21,7 +21,7 @@ exports.createChat = async (req, res) => {
         })
 
         if (chats.length > 0) {
-            return res.send(chats[0])
+            return res.json(chats[0])
         } else {
             var chatData = {
                 chatTitle: 'sender',

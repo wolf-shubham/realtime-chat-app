@@ -2,11 +2,12 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { ChatState } from '../context/ChatProvider'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import UserList from './UserList'
+import SearchList from './SearchList'
 
 const SearchUser = () => {
 
-    const { user, setCreateChat, fetchChats, setFetchchats } = ChatState()
+
+    const { user, setCreateChat, fetchChats, setFetchChats } = ChatState()
 
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
@@ -31,7 +32,7 @@ const SearchUser = () => {
         }
     }
 
-    const accessChat = (userId) => {
+    const accessChat = async (userId) => {
         console.log(userId)
         try {
             setChatLoading(true)
@@ -41,14 +42,13 @@ const SearchUser = () => {
                     'Authorization': `Bearer ${user?.token}`
                 }
             }
-            const { data } = axios.post(`/chat`, { userId }, config)
-
-            if (!fetchChats.find(chat => chat.id === data.id)) {
-                setFetchchats([...fetchChats, data])
+            const { data } = await axios.post(`/chat`, { userId }, config)
+            console.log(data);
+            if (!fetchChats.find(chat => chat._id === data._id)) {
+                setFetchChats([...fetchChats, data])
             }
-
-            setCreateChat(data)
             setChatLoading(false)
+            setCreateChat(data)
         } catch (error) {
             console.log(error)
         }
@@ -99,7 +99,7 @@ const SearchUser = () => {
             {
                 loading ? <CircularProgress /> : (
                     searchResult?.map((user) => (
-                        <UserList
+                        <SearchList
                             key={user._id}
                             user={user}
                             handleFunction={() => accessChat(user._id)}

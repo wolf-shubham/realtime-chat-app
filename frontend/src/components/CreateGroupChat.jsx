@@ -10,18 +10,41 @@ const CreateGroupChat = () => {
     // chats is fetchchats in ur project, createchat is
     const [groupName, setGroupName] = useState('')
     const [usersToBeAdded, setUsersToBeAdded] = useState([])
-    const [groupChatName, setGroupChatName] = useState('')
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
 
     const { user, fetchChats, setFetchChats } = ChatState()
 
-    const createGroupName = async () => {
-        console.log('submit')
-    }
+    // const createGroupName = async () => {
+    //     console.log('submit')
+    // }
     const handleSubmit = async () => {
+        const userSa = JSON.stringify(usersToBeAdded.map(user => user.id))
+        console.log(userSa);
         console.log('submit')
+        if (!usersToBeAdded || !groupName) {
+            alert('Please fill all the fields')
+            return
+        }
+        try {
+            setLoading(true)
+            const config = {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Authorization': `Bearer ${user?.token}`
+                }
+            }
+            const { data } = await axios.post(`/chat/groupchat`, {
+                groupTitle: groupName,
+                usersList: JSON.stringify(usersToBeAdded.map(user => user._id)),
+            }, config)
+            console.log(data)
+            setLoading(false)
+            setFetchChats([...fetchChats, data])
+        } catch (error) {
+            console.log(error)
+        }
     }
     const searchUser = async (query) => {
         setSearch(query)
@@ -68,7 +91,7 @@ const CreateGroupChat = () => {
             flexDirection: 'column'
         }}>
             <h2>create group chat</h2>
-            <form onSubmit={createGroupName} style={{ width: '100%' }}>
+            <form style={{ width: '100%' }}>
                 <input
                     type="text"
                     placeholder="Group Name"
