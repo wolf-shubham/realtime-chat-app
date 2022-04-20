@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { ChatState } from '../context/ChatProvider'
 import UserList from './UserList'
 import './Scrollbar.css'
+import AddUser from './AddUser'
 
 const CreateGroupChat = () => {
     // chats is fetchchats in ur project, createchat is
@@ -25,7 +26,7 @@ const CreateGroupChat = () => {
     const searchUser = async (query) => {
         setSearch(query)
         if (!query) {
-            return
+            return setSearchResult([])
         }
         try {
             setLoading(true)
@@ -36,12 +37,25 @@ const CreateGroupChat = () => {
                 }
             }
             const { data } = await axios.get(`/user?search=${search}`, config)
-            console.log(data)
             setLoading(false)
             setSearchResult(data)
         } catch (error) {
-
+            setLoading(false)
         }
+    }
+
+    const handleGroup = async (userToAdd) => {
+        console.log('submit')
+        if (usersToBeAdded.includes(userToAdd)) {
+            console.log('already added');
+            return
+        }
+        setUsersToBeAdded([...usersToBeAdded, userToAdd])
+    }
+
+    const removeUser = (userToBeRemoved) => {
+        console.log('remove')
+        setUsersToBeAdded(usersToBeAdded.filter(user => user._id !== userToBeRemoved._id))
     }
 
     return (
@@ -83,6 +97,18 @@ const CreateGroupChat = () => {
                     }}
                 />
             </form>
+            <div style={{ display: 'flex', marginTop: '1rem' }}>
+                {
+                    usersToBeAdded.map(u => (
+                        <AddUser
+                            key={u._id}
+                            user={u}
+                            handleFunction={() => removeUser(u)}
+                        />
+                    ))
+                }
+            </div>
+
             <div className='scrollBar'
                 style={{
                     width: '100%',
@@ -93,7 +119,9 @@ const CreateGroupChat = () => {
                             searchResult?.map(user => (
                                 <UserList
                                     key={user._id}
-                                    user={user} />
+                                    user={user}
+                                    handleFunction={() => handleGroup(user)}
+                                />
                             )
                             ))
                 }
