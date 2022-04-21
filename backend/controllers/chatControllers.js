@@ -14,10 +14,10 @@ exports.createChat = async (req, res) => {
                 { users: { $elemMatch: { $eq: userId } } }
             ]
         }).populate('users', '_id name username')
-            .populate('lastMessage', '_id message createdAt')
+            .populate('lastMessage')
         chats = await User.populate(chats, {
             path: 'lastMessage.sender',
-            select: '_id name username',
+            select: '_id name username profilePicture',
         })
 
         if (chats.length > 0) {
@@ -31,7 +31,7 @@ exports.createChat = async (req, res) => {
             try {
                 const createdChat = await Chat.create(chatData)
                 const fullChat = await Chat.findById(createdChat._id)
-                    .populate('users', '_id name username')
+                    .populate('users', '_id name username profilePicture')
                 return res.status(200).json(fullChat)
             } catch (error) {
                 console.log(error);
@@ -48,14 +48,14 @@ exports.fetchChats = async (req, res) => {
     try {
         var chats = await Chat.find({
             users: { $elemMatch: { $eq: req.user._id } }
-        }).populate('users', '_id name username')
+        }).populate('users', '_id name username profilePicture')
             .populate('groupAdmin', '_id name username')
-            .populate('lastMessage', '_id message createdAt')
+            .populate('lastMessage')
             .sort({ updatedAt: -1 })
             .then(async (chatData) => {
                 chatData = await User.populate(chatData, {
                     path: 'lastMessage.sender',
-                    select: '_id name username',
+                    select: '_id name username profilePicture',
                 })
                 return res.status(200).json(chatData)
             })
@@ -86,9 +86,9 @@ exports.createGroupChat = async (req, res) => {
         try {
             const createdGroupChat = await Chat.create(chatData)
             const fullGroupChat = await Chat.findById(createdGroupChat._id)
-                .populate('users', '_id name username')
-                .populate('groupAdmin', '_id name username')
-                .populate('lastMessage', '_id message createdAt')
+                .populate('users', '_id name username profilePicture')
+                .populate('groupAdmin', '-password')
+                .populate('lastMessage')
             return res.status(200).json({ fullGroupChat })
         } catch (error) {
             console.log(error);

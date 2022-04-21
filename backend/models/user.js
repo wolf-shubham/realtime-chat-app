@@ -15,12 +15,6 @@ const userModel = mongoose.Schema({
             ref: 'Chat'
         }
     ],
-    messages: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Message'
-        }
-    ]
 }, { timestamps: true })
 
 module.exports = mongoose.model('User', userModel)

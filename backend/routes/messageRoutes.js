@@ -1,10 +1,10 @@
 const router = require('express').Router()
-const { sendMessage, getMessagesFromChat } = require('../controllers/messageController')
+const { sendMessage, getAllMessagesFromChat } = require('../controllers/messageController')
 const { isAuthenticated } = require('../middlewares/authMiddleware')
 
 
 router.post('/', isAuthenticated, sendMessage)
 
-router.get('/:chatId', isAuthenticated, getMessagesFromChat)
+router.get('/:chatId', isAuthenticated, getAllMessagesFromChat)
 
 module.exports = router
