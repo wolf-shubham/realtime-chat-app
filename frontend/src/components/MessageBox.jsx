@@ -1,11 +1,16 @@
-import React from 'react'
+import { Button, Dialog } from '@mui/material'
+import React, { useState } from 'react'
 import { ChatState } from '../context/ChatProvider'
+import ProfileModel from './ProfileModel'
 
 const MessageBox = () => {
 
     const { user, createChat, setCreateChat } = ChatState()
+    const [openProfile, setOpenProfile] = useState(false)
 
     const userName = createChat?.users[0]._id === user?.user._id ? createChat?.users[1].name : createChat?.users[0].name
+
+    const selectedUser = createChat?.users[0]._id === user?.user._id ? createChat?.users[1] : createChat?.users[0]
 
     return (
         <>
@@ -24,6 +29,10 @@ const MessageBox = () => {
                                 </>
                             )
                         }
+                        <Button
+                            onClick={() => setOpenProfile(true)}
+                        >profile</Button>
+
                     </> :
                     (
                         <div style={{
@@ -35,6 +44,11 @@ const MessageBox = () => {
                         </div>
                     )
             }
+
+            <Dialog open={openProfile} onClose={() => setOpenProfile(!openProfile)}>
+
+                <ProfileModel user={selectedUser} chatDetails={createChat} groupChat={createChat?.isGroupChat} />
+            </Dialog >
         </>
     )
 }
