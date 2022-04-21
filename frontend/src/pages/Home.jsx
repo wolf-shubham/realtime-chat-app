@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Chat from '../components/Chat'
 import Header from '../components/Header'
 import UserChatsList from '../components/UserChatsList'
 import '../components/BorderBox.css'
+import { ChatState } from '../context/ChatProvider'
 
 const Home = () => {
+
+    const { user } = ChatState()
+    const [refetch, setRefetch] = useState(false)
 
     return (
         <div>
             <Header />
             <div style={{ display: 'flex', height: '87vh', padding: '1rem' }}>
-                <div style={{ flex: '3' }} className='boxBorder'><UserChatsList /></div>
-                <div style={{ flex: '9', marginLeft: '1rem', padding: '1rem' }} className='boxBorder'><Chat /></div>
+                {user && <div style={{ flex: '3' }} className='boxBorder'><UserChatsList refetch={refetch} /></div>}
+                {user &&
+                    <div style={{ flex: '9', marginLeft: '1rem', padding: '1rem' }} className='boxBorder'><Chat refetch={refetch} setRefetch={setRefetch} /></div>}
             </div>
 
         </div>

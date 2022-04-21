@@ -7,11 +7,11 @@ import { ChatState } from '../context/ChatProvider'
 import axios from 'axios'
 import CreateGroupChat from './CreateGroupChat'
 
-const UserChatsList = () => {
+const UserChatsList = ({ refetch }) => {
     // const { user } = ChatState()
     // console.log(user);
 
-    const { user, createchat, setCreateChat, fetchChats, setFetchChats } = ChatState()
+    const { user, createChat, setCreateChat, fetchChats, setFetchChats } = ChatState()
 
 
     const [searchUser, setSearchUser] = useState(false)
@@ -40,7 +40,7 @@ const UserChatsList = () => {
 
     useEffect(() => {
         fetchChatofUsers()
-    }, [])
+    }, [refetch])
 
     return (
         <>
@@ -52,7 +52,7 @@ const UserChatsList = () => {
                         variant="contained"
                         color="primary">
                         Search user
-                        <i class="fa-solid fa-magnifying-glass"
+                        <i className="fa-solid fa-magnifying-glass"
                             style={{
                                 marginLeft: '1rem',
                                 fontSize: '1.2rem'
@@ -64,7 +64,7 @@ const UserChatsList = () => {
                         variant="contained"
                         color="primary">
                         Create group chat
-                        <i class="fa-solid fa-plus"
+                        <i className="fa-solid fa-plus"
                             style={{
                                 marginLeft: '1rem',
                                 fontSize: '1.2rem'
@@ -75,10 +75,19 @@ const UserChatsList = () => {
                     {loading ? <CircularProgress /> : null}
                     <div>
                         {fetchChats.map(chat => (
-                            <SingleChat
+                            <div
                                 key={chat._id}
-                                user={chat}
-                            />
+                                onClick={() => setCreateChat(chat)}
+                                style={{
+                                    backgroundColor: ` ${chat}?"#D3DEDC": "#F5F5F5" `,
+                                    border: '1px solid #D3DEDC',
+                                }}
+                            >
+                                <SingleChat
+                                    user={chat}
+                                />
+                            </div>
+
                         ))}
                     </div>
                 </div>

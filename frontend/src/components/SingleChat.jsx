@@ -6,7 +6,9 @@ const SingleChat = ({ user }) => {
     const userName = user.users[0]._id === userId ? user.users[1].name : user.users[0].name
     return (
         <>
-            <h2>{!user.isGroupChat ? userName : user.chatTitle}</h2>
+            <div >
+                <h2>{!user.isGroupChat ? userName : user.chatTitle}</h2>
+            </div>
         </>
     )
 }
