@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { ChatState } from '../context/ChatProvider'
-import axios from 'axios'
 import { CircularProgress } from '@mui/material'
 import MessageBox from './MessageBox'
 
@@ -11,13 +10,16 @@ const Chat = ({ refetch, setRefetch }) => {
 
     return (
         <>
-            {loading ? <CircularProgress /> : null}
-            {/* <div>
+            <div >
+
+                {loading ? <CircularProgress /> : null}
+                {/* <div>
                 {fetchChats.map(chat => (
                     <SingleChat />
                 ))}
             </div> */}
-            <MessageBox refetch={refetch} setRefetch={setRefetch} />
+                <MessageBox refetch={refetch} setRefetch={setRefetch} />
+            </div>
         </>
     )
 }

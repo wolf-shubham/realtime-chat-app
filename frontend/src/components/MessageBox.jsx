@@ -82,7 +82,7 @@ const MessageBox = ({ refetch, setRefetch }) => {
                         <Button
                             onClick={() => setOpenProfile(true)}
                         >profile</Button>
-                        <div>
+                        <div >
                             {
                                 loading ?
                                     <CircularProgress /> :
@@ -91,12 +91,12 @@ const MessageBox = ({ refetch, setRefetch }) => {
                                             height: '62vh',
                                             display: 'flex',
                                             flexDirection: 'column',
-                                        }}>
+                                        }} >
                                             <ChatBox messages={messages} />
                                         </div>
                                     )
                             }
-                            <form onKeyDown={sendMessage}>
+                            <form onKeyDown={sendMessage} style={{ marginTop: '5px' }}>
                                 <input
                                     type="text"
                                     placeholder="Type your message"

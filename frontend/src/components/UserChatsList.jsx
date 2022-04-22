@@ -78,10 +78,6 @@ const UserChatsList = ({ refetch }) => {
                             <div
                                 key={chat._id}
                                 onClick={() => setCreateChat(chat)}
-                                style={{
-                                    backgroundColor: ` ${chat}?"#D3DEDC": "#F5F5F5" `,
-                                    border: '1px solid #D3DEDC',
-                                }}
                             >
                                 <SingleChat
                                     user={chat}
