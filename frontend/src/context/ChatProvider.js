@@ -11,10 +11,10 @@ const ChatProvider = ({ children }) => {
     const [fetchChats, setFetchChats] = useState([])
 
     useEffect(() => {
-        const user = JSON.parse(localStorage.getItem("userInfo"));
-        setUser(user);
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        setUser(userInfo);
 
-        if (!user) navigate("/")
+        if (!userInfo) navigate("/")
     }, [navigate]);
 
     return (

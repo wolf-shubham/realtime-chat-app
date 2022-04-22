@@ -19,7 +19,7 @@ const UserChatsList = ({ refetch }) => {
     const [loading, setLoading] = useState(false)
 
 
-    const loggedUser = JSON.parse(localStorage.getItem('userInfo'))
+    // const loggedUser = JSON.parse(localStorage.getItem('userInfo'))
 
     const fetchChatofUsers = async () => {
         setLoading(true)
@@ -27,7 +27,7 @@ const UserChatsList = ({ refetch }) => {
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${loggedUser.token}`
+                    'Authorization': `Bearer ${user?.token}`
                 }
             }
             const { data } = await axios.get('/chat', config)

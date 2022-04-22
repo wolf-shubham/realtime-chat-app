@@ -29,7 +29,7 @@ exports.sendMessage = async (req, res) => {
 
             await Chat.findByIdAndUpdate(req.body.chatId, { lastMessage: messageAdd });
 
-            return res.status(200).json({ messageAdd })
+            return res.status(200).json(messageAdd)
         } catch (error) {
             console.log(error)
             return res.status(500).json({ messaged: error.message })
