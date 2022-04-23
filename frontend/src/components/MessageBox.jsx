@@ -4,6 +4,10 @@ import React, { useEffect, useState } from 'react'
 import { ChatState } from '../context/ChatProvider'
 import ChatBox from './ChatBox'
 import ProfileModel from './ProfileModel'
+import io from 'socket.io-client'
+
+const ENDPOINT = 'http://localhost:5000/'
+var socket, selectedChatMatch
 
 const MessageBox = ({ refetch, setRefetch }) => {
 
@@ -12,6 +16,7 @@ const MessageBox = ({ refetch, setRefetch }) => {
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState("")
     const [openProfile, setOpenProfile] = useState(false)
+    const [socketConnected, setSocketConnected] = useState(false)
 
     const userName = createChat?.users[0]._id === user?.user._id ? createChat?.users[1].name : createChat?.users[0].name
 
@@ -27,6 +32,8 @@ const MessageBox = ({ refetch, setRefetch }) => {
             // console.log(messages)
             setMessages(data)
             setLoading(false)
+
+            socket.emit('join chat', createChat?._id)
         } catch (error) {
             console.log(error)
         }
@@ -50,6 +57,7 @@ const MessageBox = ({ refetch, setRefetch }) => {
                 }, config)
                 console.log(data)
                 setNewMessage('')
+                socket.emit('new message', data)
                 setMessages([...messages, data])
 
             } catch (error) {
@@ -58,10 +66,30 @@ const MessageBox = ({ refetch, setRefetch }) => {
         }
     }
 
+    const userData = user?.user
+
+    useEffect(() => {
+        socket = io(ENDPOINT)
+        socket.emit("setup", userData)
+        socket.on('connection', () => setSocketConnected(true))
+    }, [])
 
     useEffect(() => {
         fetchMessages()
+        selectedChatMatch = createChat
     }, [createChat])
+
+    useEffect(() => {
+        socket.on('message received', (newMessageReceived) => {
+            if (!selectedChatMatch || selectedChatMatch._id !== newMessageReceived.chat._id) {
+                console.log('new message received')
+            } else {
+                setMessages([...messages, newMessageReceived])
+            }
+        })
+    })
+
+
     return (
         <>
             {
