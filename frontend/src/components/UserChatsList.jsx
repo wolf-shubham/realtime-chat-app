@@ -18,7 +18,6 @@ const UserChatsList = ({ refetch }) => {
     const [createGroupChat, setCreateGroupChat] = useState(false)
     const [loading, setLoading] = useState(false)
 
-
     // const loggedUser = JSON.parse(localStorage.getItem('userInfo'))
 
     const fetchChatofUsers = async () => {
@@ -72,7 +71,35 @@ const UserChatsList = ({ refetch }) => {
                     </Button>
                 </div>
                 <div className='scrollBar'>
-                    {loading ? <CircularProgress /> : null}
+                    {
+                        fetchChats ?
+                            <>
+                                <div>
+                                    {fetchChats.map(chat => (
+                                        <div
+                                            key={chat._id}
+                                            onClick={() => setCreateChat(chat)}
+                                            style={{
+                                                backgroundColor: `${createChat === chat ? '#F73859' : 'inherit'}`,
+                                                borderRadius: '4px',
+                                                marginBottom: '3px',
+                                                border: 'none',
+                                                padding: '0.5rem 1rem',
+                                                opacity: '0.8',
+                                                borderBottom: '2px solid #343A40',
+                                            }}
+                                        >
+                                            <SingleChat
+                                                user={chat}
+                                            />
+                                        </div>
+                                    ))}
+                                </div>
+                            </>
+                            :
+                            <CircularProgress />
+                    }
+                    {/* {loading ? <CircularProgress /> : null}
                     <div>
                         {fetchChats.map(chat => (
                             <div
@@ -85,7 +112,7 @@ const UserChatsList = ({ refetch }) => {
                             </div>
 
                         ))}
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
