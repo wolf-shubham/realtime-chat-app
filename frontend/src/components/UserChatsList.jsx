@@ -8,17 +8,14 @@ import axios from 'axios'
 import CreateGroupChat from './CreateGroupChat'
 
 const UserChatsList = ({ refetch }) => {
-    // const { user } = ChatState()
-    // console.log(user);
 
-    const { user, createChat, token, setCreateChat, fetchChats, setFetchChats } = ChatState()
+    const { createChat, token, setCreateChat, fetchChats, setFetchChats } = ChatState()
 
 
     const [searchUser, setSearchUser] = useState(false)
-    const [createGroupChat, setCreateGroupChat] = useState(false)
+    const [createGroupChatUser, setCreateGroupChatUser] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    // const loggedUser = JSON.parse(localStorage.getItem('userInfo'))
 
     const fetchChatofUsers = async () => {
         setLoading(true)
@@ -37,14 +34,32 @@ const UserChatsList = ({ refetch }) => {
         }
     }
 
+
     useEffect(() => {
         fetchChatofUsers()
-    }, [refetch, fetchChats])
+    }, [])
 
+    useEffect(() => {
+    }, [refetch, fetchChats])
     return (
         <>
-            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-                <div style={{ height: '15vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'center', }}>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                    height: '100%'
+                }}
+            >
+                <div
+                    style={{
+                        height: '15vh',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center'
+                    }}
+                >
                     <Button
                         onClick={() => setSearchUser(!searchUser)}
                         sx={{ width: '75%' }}
@@ -58,7 +73,7 @@ const UserChatsList = ({ refetch }) => {
                             }}></i>
                     </Button>
                     <Button
-                        onClick={() => setCreateGroupChat(!createGroupChat)}
+                        onClick={() => setCreateGroupChatUser(!createGroupChatUser)}
                         sx={{ width: '75%' }}
                         variant="contained"
                         color="primary">
@@ -71,30 +86,30 @@ const UserChatsList = ({ refetch }) => {
                     </Button>
                 </div>
                 <div className='scrollBar'>
+                    {loading ? <CircularProgress /> : null}
                     {
                         fetchChats ?
                             <>
-                                <div>
-                                    {fetchChats.map(chat => (
-                                        <div
+                                {fetchChats.map(chat => (
+                                    <div
+                                        key={chat._id}
+                                        style={{
+                                            backgroundColor: `${createChat === chat ? '#F73859' : 'inherit'}`,
+                                            borderRadius: '4px',
+                                            marginBottom: '3px',
+                                            border: 'none',
+                                            padding: '0.5rem 1rem',
+                                            opacity: '0.8',
+                                            borderBottom: '2px solid #343A40',
+                                        }}
+                                        onClick={() => setCreateChat(chat)}
+                                    >
+                                        <SingleChat
                                             key={chat._id}
-                                            onClick={() => setCreateChat(chat)}
-                                            style={{
-                                                backgroundColor: `${createChat === chat ? '#F73859' : 'inherit'}`,
-                                                borderRadius: '4px',
-                                                marginBottom: '3px',
-                                                border: 'none',
-                                                padding: '0.5rem 1rem',
-                                                opacity: '0.8',
-                                                borderBottom: '2px solid #343A40',
-                                            }}
-                                        >
-                                            <SingleChat
-                                                user={chat}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
+                                            user={chat}
+                                        />
+                                    </div>
+                                ))}
                             </>
                             :
                             <CircularProgress />
@@ -103,10 +118,16 @@ const UserChatsList = ({ refetch }) => {
 
             </div>
 
-            <Dialog open={searchUser} onClose={() => setSearchUser(!searchUser)}>
+            <Dialog
+                open={searchUser}
+                onClose={() => setSearchUser(!searchUser)}
+            >
                 <SearchUser />
             </Dialog >
-            <Dialog open={createGroupChat} onClose={() => setCreateGroupChat(!createGroupChat)}>
+            <Dialog
+                open={createGroupChatUser}
+                onClose={() => setCreateGroupChatUser(!createGroupChatUser)}
+            >
                 <CreateGroupChat />
             </Dialog >
         </>

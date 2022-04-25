@@ -5,6 +5,7 @@ const AddUser = ({ user, handleFunction }) => {
         <>
             <div style={{
                 display: 'flex',
+                width: 'contain',
                 alignItems: 'center',
                 justifyContent: 'center',
                 marginRight: '1rem',

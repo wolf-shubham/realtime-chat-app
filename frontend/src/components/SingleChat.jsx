@@ -1,26 +1,39 @@
 import React from 'react'
 
 const SingleChat = ({ user }) => {
-    // console.log(user)
+
     const loggedUser = JSON.parse(localStorage.getItem('userInfo'))
     const userId = loggedUser?._id
-    // console.log(loggedUser);
     const userName = user.users[0]._id === userId ? user.users[1].name : user.users[0].name
     const userPic = user.users[0]._id === userId ? user.users[1].profilePicture : user.users[0].profilePicture
-    // const lastMessage = 
+
     return (
         <>
             <div style={{
                 display: 'flex',
                 alignItems: 'center',
             }}>
-                <img src={userPic} alt={userName}
-                    style={{
-                        width: '2.5rem',
-                        height: '2.5rem',
-                        borderRadius: '50%',
-                    }}
-                />
+                {
+                    !user.isGroupChat ?
+                        <img src={userPic} alt={userName}
+                            style={{
+                                width: '2.5rem',
+                                height: '2.5rem',
+                                borderRadius: '50%',
+                            }}
+                        />
+                        :
+                        <img
+                            src="http://res.cloudinary.com/wolf-shubham/image/upload/v1650892228/pdbt3ukxtszo1ueuzto6.png"
+                            alt={user.chatTitle}
+                            style={{
+                                width: '2.5rem',
+                                height: '2.5rem',
+                                borderRadius: '50%',
+                            }}
+                        />
+                }
+
                 <div style={{
                     marginLeft: '1rem',
                 }}>

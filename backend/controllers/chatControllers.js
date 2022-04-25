@@ -89,7 +89,7 @@ exports.createGroupChat = async (req, res) => {
                 .populate('users', '_id name username profilePicture')
                 .populate('groupAdmin', '-password')
                 .populate('lastMessage')
-            return res.status(200).json({ fullGroupChat })
+            return res.status(200).json(fullGroupChat)
         } catch (error) {
             console.log(error);
             return res.status(500).json({ message: 'network error in try block' })

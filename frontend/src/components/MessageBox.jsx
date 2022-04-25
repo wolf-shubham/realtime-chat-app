@@ -11,7 +11,7 @@ var socket, selectedChatMatch
 
 const MessageBox = ({ refetch, setRefetch }) => {
 
-    const { user, createChat, setCreateChat, token } = ChatState()
+    const { user, createChat, token } = ChatState()
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState("")
@@ -29,7 +29,6 @@ const MessageBox = ({ refetch, setRefetch }) => {
             const config = { headers: { Authorization: `Bearer ${token}` } }
 
             const { data } = await axios.get(`/message/${createChat?._id}`, config)
-            // console.log(messages)
             setMessages(data)
             setLoading(false)
 
@@ -55,7 +54,7 @@ const MessageBox = ({ refetch, setRefetch }) => {
                     chatId: createChat?._id,
                     message: newMessage
                 }, config)
-                console.log(data)
+                // console.log(data)
                 setNewMessage('')
                 socket.emit('new message', data)
                 setMessages([...messages, data])
@@ -114,11 +113,14 @@ const MessageBox = ({ refetch, setRefetch }) => {
                             }
                             <Button
                                 onClick={() => setOpenProfile(true)}
-                            ><i className="fa-solid fa-id-badge"
-                                style={{
-                                    fontSize: '2rem',
-                                    color: '#FD5D5D'
-                                }}></i></Button>
+                            ><i
+                                    className="fa-solid fa-id-badge"
+                                    style={{
+                                        fontSize: '2rem',
+                                        color: '#FD5D5D'
+                                    }}
+                                />
+                            </Button>
                         </div>
                         <div >
                             {

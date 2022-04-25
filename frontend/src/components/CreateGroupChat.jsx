@@ -7,22 +7,17 @@ import './Scrollbar.css'
 import AddUser from './AddUser'
 
 const CreateGroupChat = () => {
-    // chats is fetchchats in ur project, createchat is
     const [groupName, setGroupName] = useState('')
     const [usersToBeAdded, setUsersToBeAdded] = useState([])
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const { user, token, fetchChats, setFetchChats } = ChatState()
+    const { token, fetchChats, setFetchChats } = ChatState()
 
-    // const createGroupName = async () => {
-    //     console.log('submit')
-    // }
-    const handleSubmit = async () => {
-        const userSa = JSON.stringify(usersToBeAdded.map(user => user.id))
-        console.log(userSa);
-        console.log('submit')
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
         if (!usersToBeAdded || !groupName) {
             alert('Please fill all the fields')
             return
@@ -40,8 +35,8 @@ const CreateGroupChat = () => {
                 usersList: JSON.stringify(usersToBeAdded.map(user => user._id)),
             }, config)
             console.log(data)
-            setLoading(false)
             setFetchChats([...fetchChats, data])
+            setLoading(false)
         } catch (error) {
             console.log(error)
         }
@@ -60,24 +55,22 @@ const CreateGroupChat = () => {
                 }
             }
             const { data } = await axios.get(`/user?search=${search}`, config)
-            setLoading(false)
             setSearchResult(data)
+            setLoading(false)
         } catch (error) {
             setLoading(false)
         }
     }
 
     const handleGroup = async (userToAdd) => {
-        console.log('submit')
         if (usersToBeAdded.includes(userToAdd)) {
-            console.log('already added');
+            alert('already added');
             return
         }
         setUsersToBeAdded([...usersToBeAdded, userToAdd])
     }
 
     const removeUser = (userToBeRemoved) => {
-        console.log('remove')
         setUsersToBeAdded(usersToBeAdded.filter(user => user._id !== userToBeRemoved._id))
     }
 
