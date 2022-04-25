@@ -7,11 +7,26 @@ const SearchList = ({ user, handleFunction }) => {
             alignItems: 'center',
             marginTop: '1rem',
         }}>
-            <div style={{ marginRight: '2rem' }}>
+            <img
+                src={user.profilePicture}
+                alt={user.name}
+                style={{
+                    height: '3rem',
+                    width: '3rem',
+                    borderRadius: '50%',
+                    cursor: 'pointer',
+                    marginTop: '7px',
+                    marginRight: '1rem'
+                }}
+            />
+            <div
+                style={{
+                    margin: '0 3rem 0 0rem'
+                }}>
                 <h2>{user.name}</h2>
                 <h4>{user.email}</h4>
             </div>
-            <span class="material-icons" onClick={handleFunction}>
+            <span className="material-icons" onClick={handleFunction}>
                 add_circle_outline
             </span>
         </div>

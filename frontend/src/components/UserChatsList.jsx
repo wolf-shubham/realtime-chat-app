@@ -39,7 +39,7 @@ const UserChatsList = ({ refetch }) => {
 
     useEffect(() => {
         fetchChatofUsers()
-    }, [refetch])
+    }, [refetch, fetchChats])
 
     return (
         <>

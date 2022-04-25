@@ -14,7 +14,8 @@ const SearchUser = () => {
     const [loading, setLoading] = useState(false)
     const [chatLoading, setChatLoading] = useState(false)
 
-    const handleSearch = async () => {
+    const handleSearch = async (e) => {
+        e.preventDefault()
         try {
             setLoading(true)
             const config = {
@@ -24,7 +25,7 @@ const SearchUser = () => {
                 }
             }
             const { data } = await axios.get(`/user?search=${search}`, config)
-            console.log(data)
+            // console.log(data)
             setLoading(false)
             setSearchResult(data)
         } catch (error) {
@@ -66,10 +67,13 @@ const SearchUser = () => {
             <h2 style={{
                 marginBottom: '1rem'
             }}>SearchUser</h2>
-            <div style={{
-                display: 'flex',
-                alignItems: 'center'
-            }}>
+
+            <form onSubmit={handleSearch}
+                style={{
+                    display: 'flex',
+                    alignItems: 'center'
+                }}
+            >
                 <input
                     type="text"
                     placeholder="Search user"
@@ -83,19 +87,18 @@ const SearchUser = () => {
                         padding: '0.5rem'
                     }} />
                 <button
-                    onClick={handleSearch}
                     style={{
                         border: 'none',
                         background: 'transparent',
                         cursor: 'pointer'
                     }}>
-                    <i class="fa-solid fa-search"
+                    <i className="fa-solid fa-search"
                         style={{
                             fontSize: '1.3rem',
                             marginLeft: '1.5rem'
                         }}></i>
                 </button>
-            </div>
+            </form>
             {
                 loading ? <CircularProgress /> : (
                     searchResult?.map((user) => (
