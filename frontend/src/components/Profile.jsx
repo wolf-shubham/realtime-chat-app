@@ -25,7 +25,8 @@ const Profile = () => {
                         width: '15rem',
                         borderRadius: '50%',
                         margin: '2rem 0rem'
-                    }} />
+                    }}
+                />
                 <h1
                     style={{
                         marginBottom: '0.5rem'

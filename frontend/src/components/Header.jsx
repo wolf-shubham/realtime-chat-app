@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { ChatState } from '../context/ChatProvider';
 import Profile from './Profile';
+import UpdateProfilePic from './UpdateProfilePic';
 
 const Header = () => {
 
@@ -12,6 +13,7 @@ const Header = () => {
 
     const [anchorEl, setAnchorEl] = useState(null)
     const [showProfile, setShowProfile] = useState(false)
+    const [updateProfile, setUpdateProfile] = useState(false)
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -63,10 +65,12 @@ const Header = () => {
                         <img
                             src={user?.user.profilePicture}
                             alt={user?.user.name}
+                            onClick={() => setUpdateProfile(true)}
                             style={{
                                 height: '2.5rem',
                                 width: '2.5rem',
-                                borderRadius: '50%'
+                                borderRadius: '50%',
+                                cursor: 'pointer'
                             }} />
                         <Button
                             onClick={handleClick}
@@ -101,6 +105,11 @@ const Header = () => {
                         onClose={() => setShowProfile(!showProfile)}>
                         <Profile />
                     </Dialog >
+                    <Dialog
+                        open={updateProfile}
+                        onClose={() => setUpdateProfile(!updateProfile)}>
+                        <UpdateProfilePic user={user?.user} />
+                    </Dialog>
                 </div >
             </div>
         </>
