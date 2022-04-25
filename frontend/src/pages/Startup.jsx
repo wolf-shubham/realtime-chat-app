@@ -7,6 +7,7 @@ import TabPanel from '@mui/lab/TabPanel';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import { useNavigate } from 'react-router-dom';
+import '../App.css'
 
 
 const Startup = () => {
@@ -27,21 +28,23 @@ const Startup = () => {
 
     return (
         <>
-            <Box sx={{ width: '50%', typography: 'body1' }} style={{ padding: '1rem' }}>
-                <TabContext value={value} >
-                    <Box sx={{ borderBottom: 2, borderColor: 'divider' }} >
-                        <TabList onChange={handleChange} centered style={{
-                            width: '100%'
-                        }}>
-                            <Tab label="Login" value="1" style={{ width: '50%' }
-                            } />
-                            <Tab label="Register" value="2" style={{ width: '50%' }} />
-                        </TabList>
-                    </Box>
-                    <TabPanel value="1">{<Login />}</TabPanel>
-                    <TabPanel value="2">{<Register />}</TabPanel>
-                </TabContext>
-            </Box >
+            <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
+                <Box sx={{ width: '50%', typography: 'body1' }} className='logregister'>
+                    <TabContext value={value} >
+                        <Box sx={{ borderBottom: 2, borderColor: 'divider' }} >
+                            <TabList onChange={handleChange} centered style={{
+                                width: '100%'
+                            }}>
+                                <Tab label="Login" value="1" style={{ width: '50%', fontSize: '1.5rem' }} />
+
+                                <Tab label="Register" value="2" style={{ width: '50%', fontSize: '1.5rem' }} />
+                            </TabList>
+                        </Box>
+                        <TabPanel value="1">{<Login />}</TabPanel>
+                        <TabPanel value="2">{<Register />}</TabPanel>
+                    </TabContext>
+                </Box >
+            </div>
         </>
     )
 }

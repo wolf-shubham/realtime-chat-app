@@ -95,28 +95,34 @@ const MessageBox = ({ refetch, setRefetch }) => {
             {
                 createChat ?
                     <>
-                        {!createChat.isGroupChat ?
-                            (
-                                <>
-                                    <h2>{!user.isGroupChat ? userName : user.chatTitle}</h2>
-                                </>
-                            ) :
-                            (
-                                <>
-                                    <h2>{createChat.chatTitle.toUpperCase()}</h2>
-                                </>
-                            )
-                        }
-                        <Button
-                            onClick={() => setOpenProfile(true)}
-                        >profile</Button>
+                        <div style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            padding: '0 0.5rem',
+                        }}>
+                            {!createChat.isGroupChat ?
+                                (
+                                    <>
+                                        <h2>{!user.isGroupChat ? userName : user.chatTitle}</h2>
+                                    </>
+                                ) :
+                                (
+                                    <>
+                                        <h2>{createChat.chatTitle.toUpperCase()}</h2>
+                                    </>
+                                )
+                            }
+                            <Button
+                                onClick={() => setOpenProfile(true)}
+                            ><i class="fa-solid fa-id-badge" style={{ fontSize: '2rem', color: '#FD5D5D' }}></i></Button>
+                        </div>
                         <div >
                             {
                                 loading ?
                                     <CircularProgress /> :
                                     (
                                         <div style={{
-                                            height: '62vh',
+                                            height: '64vh',
                                             display: 'flex',
                                             flexDirection: 'column',
                                         }} >

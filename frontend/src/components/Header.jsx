@@ -28,31 +28,37 @@ const Header = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0rem 2rem', height: '13vh' }}>
-                <h1 style={{ color: 'white', fontFamily: font, letterSpacing: '3px', fontSize: '4rem', fontWeight: '500' }}>chatty...</h1>
-                <div style={{ width: '15%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
-                    <img src={user?.user.profilePicture} alt={user?.user.name} style={{ height: '2.5rem', width: '2.5rem', borderRadius: '50%' }} />
-                    <Button
-                        onClick={handleClick}
-                        variant="contained"
-                        style={{ letterSpacing: '1px' }}
-                    >
-                        {user?.user.name}
-                    </Button>
-                    <Menu
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={handleClose}
-                        style={{ marginTop: '0.3rem', marginLeft: '1.6rem' }}
-                    >
-                        <MenuItem onClick={() => setShowProfile(!showProfile)} >Profile</MenuItem>
-                        <MenuItem onClick={handleLogout}>Logout</MenuItem>
-                    </Menu>
-                </div>
-                <Dialog open={showProfile} onClose={() => setShowProfile(!showProfile)}>
-                    <Profile />
-                </Dialog >
-            </div >
+            <div style={{ display: 'flex', width: '100%' }}>
+                <div style={{
+                    display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                    margin: '1rem 1rem 0rem', padding: '1rem 2rem', height: '11vh', width: '100%', background: `rgba(240, 234, 237, 0.5)`,
+                    borderRadius: '0.4rem',
+                }}>
+                    <h1 style={{ color: 'white', fontFamily: font, letterSpacing: '3px', fontSize: '4rem', fontWeight: '500' }}>chatty...</h1>
+                    <div style={{ width: '15%', display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+                        <img src={user?.user.profilePicture} alt={user?.user.name} style={{ height: '2.5rem', width: '2.5rem', borderRadius: '50%' }} />
+                        <Button
+                            onClick={handleClick}
+                            variant="contained"
+                            style={{ letterSpacing: '1px' }}
+                        >
+                            {user?.user.name}
+                        </Button>
+                        <Menu
+                            anchorEl={anchorEl}
+                            open={open}
+                            onClose={handleClose}
+                            style={{ marginTop: '0.3rem', marginLeft: '1.6rem' }}
+                        >
+                            <MenuItem onClick={() => setShowProfile(!showProfile)} >Profile</MenuItem>
+                            <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                        </Menu>
+                    </div>
+                    <Dialog open={showProfile} onClose={() => setShowProfile(!showProfile)}>
+                        <Profile />
+                    </Dialog >
+                </div >
+            </div>
         </>
     )
 }
