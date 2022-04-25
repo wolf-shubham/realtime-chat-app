@@ -63,8 +63,8 @@ const Header = () => {
                             alignItems: 'center'
                         }}>
                         <img
-                            src={user?.user.profilePicture}
-                            alt={user?.user.name}
+                            src={user?.profilePicture}
+                            alt={user?.name}
                             onClick={() => setUpdateProfile(true)}
                             style={{
                                 height: '2.5rem',
@@ -79,7 +79,7 @@ const Header = () => {
                                 letterSpacing: '1px'
                             }}
                         >
-                            {user?.user.name}
+                            {user?.name}
                         </Button>
                         <Menu
                             anchorEl={anchorEl}
@@ -108,7 +108,7 @@ const Header = () => {
                     <Dialog
                         open={updateProfile}
                         onClose={() => setUpdateProfile(!updateProfile)}>
-                        <UpdateProfilePic user={user?.user} />
+                        <UpdateProfilePic />
                     </Dialog>
                 </div >
             </div>

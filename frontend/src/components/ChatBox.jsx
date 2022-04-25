@@ -5,7 +5,7 @@ import { Tooltip } from '@mui/material'
 
 const ChatBox = ({ messages }) => {
     const { user } = ChatState()
-    const userId = user?.user._id
+    const userId = user?._id
 
     const isSameAuthor = (messages, message, index, userId) => {
         return (
@@ -52,7 +52,7 @@ const ChatBox = ({ messages }) => {
                             }}>{message?.message}</h3>
                             {
                                 (isSameAuthor(messages, message, index, userId) ||
-                                    isLastMessage(messages, index, user?.user._id)) &&
+                                    isLastMessage(messages, index, user?._id)) &&
                                 (<>
                                     <Tooltip title={message.sender.name} arrow
                                     >

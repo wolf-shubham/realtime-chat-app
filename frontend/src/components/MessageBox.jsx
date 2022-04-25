@@ -11,22 +11,22 @@ var socket, selectedChatMatch
 
 const MessageBox = ({ refetch, setRefetch }) => {
 
-    const { user, createChat, setCreateChat } = ChatState()
+    const { user, createChat, setCreateChat, token } = ChatState()
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState("")
     const [openProfile, setOpenProfile] = useState(false)
     const [socketConnected, setSocketConnected] = useState(false)
 
-    const userName = createChat?.users[0]._id === user?.user._id ? createChat?.users[1].name : createChat?.users[0].name
+    const userName = createChat?.users[0]._id === user?._id ? createChat?.users[1].name : createChat?.users[0].name
 
-    const selectedUser = createChat?.users[0]._id === user?.user._id ? createChat?.users[1] : createChat?.users[0]
+    const selectedUser = createChat?.users[0]._id === user?._id ? createChat?.users[1] : createChat?.users[0]
 
     const fetchMessages = async () => {
         if (!createChat) return;
         try {
             setLoading(true)
-            const config = { headers: { Authorization: `Bearer ${user?.token}` } }
+            const config = { headers: { Authorization: `Bearer ${token}` } }
 
             const { data } = await axios.get(`/message/${createChat?._id}`, config)
             // console.log(messages)
@@ -47,7 +47,7 @@ const MessageBox = ({ refetch, setRefetch }) => {
                 const config = {
                     headers: {
                         'Content-type': 'application/json',
-                        'Authorization': `Bearer ${user?.token}`
+                        'Authorization': `Bearer ${token}`
                     }
                 }
 
@@ -66,7 +66,7 @@ const MessageBox = ({ refetch, setRefetch }) => {
         }
     }
 
-    const userData = user?.user
+    const userData = user
 
     useEffect(() => {
         socket = io(ENDPOINT)
@@ -114,7 +114,7 @@ const MessageBox = ({ refetch, setRefetch }) => {
                             }
                             <Button
                                 onClick={() => setOpenProfile(true)}
-                            ><i class="fa-solid fa-id-badge"
+                            ><i className="fa-solid fa-id-badge"
                                 style={{
                                     fontSize: '2rem',
                                     color: '#FD5D5D'

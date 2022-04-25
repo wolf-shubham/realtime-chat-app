@@ -18,8 +18,8 @@ const Profile = () => {
                 }}>
                 <h1>Profile</h1>
                 <img
-                    src={user?.user.profilePicture}
-                    alt={user?.user.name}
+                    src={user?.profilePicture}
+                    alt={user?.name}
                     style={{
                         height: '15rem',
                         width: '15rem',
@@ -31,16 +31,16 @@ const Profile = () => {
                     style={{
                         marginBottom: '0.5rem'
                     }}>
-                    {user?.user.name}
+                    {user?.name}
                 </h1>
                 <h2>
-                    {user?.user.username}
+                    {user?.username}
                 </h2>
                 <h2
                     style={{
                         margin: '0.5rem 0rem'
                     }}>
-                    {user?.user.email}
+                    {user?.email}
                 </h2>
             </div>
         </>

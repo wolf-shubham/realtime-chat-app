@@ -14,7 +14,7 @@ const CreateGroupChat = () => {
     const [searchResult, setSearchResult] = useState([])
     const [loading, setLoading] = useState(false)
 
-    const { user, fetchChats, setFetchChats } = ChatState()
+    const { user, token, fetchChats, setFetchChats } = ChatState()
 
     // const createGroupName = async () => {
     //     console.log('submit')
@@ -32,7 +32,7 @@ const CreateGroupChat = () => {
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${user?.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             }
             const { data } = await axios.post(`/chat/groupchat`, {
@@ -56,7 +56,7 @@ const CreateGroupChat = () => {
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${user?.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             }
             const { data } = await axios.get(`/user?search=${search}`, config)

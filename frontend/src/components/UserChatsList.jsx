@@ -11,7 +11,7 @@ const UserChatsList = ({ refetch }) => {
     // const { user } = ChatState()
     // console.log(user);
 
-    const { user, createChat, setCreateChat, fetchChats, setFetchChats } = ChatState()
+    const { user, createChat, token, setCreateChat, fetchChats, setFetchChats } = ChatState()
 
 
     const [searchUser, setSearchUser] = useState(false)
@@ -26,7 +26,7 @@ const UserChatsList = ({ refetch }) => {
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${user?.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             }
             const { data } = await axios.get('/chat', config)
@@ -99,20 +99,6 @@ const UserChatsList = ({ refetch }) => {
                             :
                             <CircularProgress />
                     }
-                    {/* {loading ? <CircularProgress /> : null}
-                    <div>
-                        {fetchChats.map(chat => (
-                            <div
-                                key={chat._id}
-                                onClick={() => setCreateChat(chat)}
-                            >
-                                <SingleChat
-                                    user={chat}
-                                />
-                            </div>
-
-                        ))}
-                    </div> */}
                 </div>
 
             </div>

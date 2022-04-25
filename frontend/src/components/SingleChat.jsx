@@ -3,7 +3,8 @@ import React from 'react'
 const SingleChat = ({ user }) => {
     // console.log(user)
     const loggedUser = JSON.parse(localStorage.getItem('userInfo'))
-    const userId = loggedUser.user._id
+    const userId = loggedUser?._id
+    // console.log(loggedUser);
     const userName = user.users[0]._id === userId ? user.users[1].name : user.users[0].name
     const userPic = user.users[0]._id === userId ? user.users[1].profilePicture : user.users[0].profilePicture
     // const lastMessage = 
@@ -29,16 +30,16 @@ const SingleChat = ({ user }) => {
                             color: '#1C1427',
                             fontWeight: "bolder",
                         }}
-                    >{user.lastMessage.sender.name}:</span> <span
+                    >{user.lastMessage ? user.lastMessage.sender.name : null}:</span> <span
                         style={{
                             color: '#1B1C25',
                             fontWeight: 'bold',
                             textOverflow: 'ellipsis',
-                        }}>{user.lastMessage.message.length > 15 ? user.lastMessage.message.substring(0, 14) + '...' : user.lastMessage.message}
-                        </span>
+                        }}>{user.lastMessage ? (user.lastMessage.message.length > 15 ? user.lastMessage.message.substring(0, 14) + '...' : user.lastMessage.message) : null}</span>
                     </h4>
+
                 </div>
-            </div>
+            </div >
         </>
     )
 }

@@ -20,7 +20,8 @@ const Login = () => {
                 email,
                 password
             }, config)
-            localStorage.setItem('userInfo', JSON.stringify(data))
+            localStorage.setItem('userInfo', JSON.stringify(data.user))
+            localStorage.setItem('token', JSON.stringify(data.token))
             navigate('/home')
         } catch (error) {
             console.log(error)

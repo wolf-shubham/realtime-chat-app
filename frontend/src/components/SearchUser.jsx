@@ -7,7 +7,7 @@ import SearchList from './SearchList'
 const SearchUser = () => {
 
 
-    const { user, setCreateChat, fetchChats, setFetchChats } = ChatState()
+    const { user, token, setCreateChat, fetchChats, setFetchChats } = ChatState()
 
     const [search, setSearch] = useState('')
     const [searchResult, setSearchResult] = useState([])
@@ -20,7 +20,7 @@ const SearchUser = () => {
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${user?.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             }
             const { data } = await axios.get(`/user?search=${search}`, config)
@@ -39,7 +39,7 @@ const SearchUser = () => {
             const config = {
                 headers: {
                     'Content-type': 'application/json',
-                    'Authorization': `Bearer ${user?.token}`
+                    'Authorization': `Bearer ${token}`
                 }
             }
             const { data } = await axios.post(`/chat`, { userId }, config)
