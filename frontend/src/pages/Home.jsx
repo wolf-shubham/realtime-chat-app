@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Chat from '../components/Chat'
 import Header from '../components/Header'
 import UserChatsList from '../components/UserChatsList'
@@ -8,7 +8,6 @@ import { ChatState } from '../context/ChatProvider'
 const Home = () => {
 
     const { user } = ChatState()
-    const [refetch, setRefetch] = useState(false)
 
     return (
         <div>
@@ -26,7 +25,7 @@ const Home = () => {
                             background: 'rgba(137, 227, 214, 0.5)'
                         }}
                         className='boxBorder'>
-                        <UserChatsList refetch={refetch} />
+                        <UserChatsList />
                     </div>
                 }
                 {
@@ -40,10 +39,7 @@ const Home = () => {
                         }}
                         className='boxBorder'
                     >
-                        <Chat
-                            refetch={refetch}
-                            setRefetch={setRefetch}
-                        />
+                        <Chat />
                     </div>
                 }
             </div>

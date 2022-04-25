@@ -6,10 +6,10 @@ import ChatBox from './ChatBox'
 import ProfileModel from './ProfileModel'
 import io from 'socket.io-client'
 
-const ENDPOINT = 'http://localhost:5000/'
+const ENDPOINT = 'https://chat-app-chatty-mern.herokuapp.com/'
 var socket, selectedChatMatch
 
-const MessageBox = ({ refetch, setRefetch }) => {
+const MessageBox = () => {
 
     const { user, createChat, token } = ChatState()
     const [messages, setMessages] = useState([])

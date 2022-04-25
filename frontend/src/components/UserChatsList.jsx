@@ -7,7 +7,7 @@ import { ChatState } from '../context/ChatProvider'
 import axios from 'axios'
 import CreateGroupChat from './CreateGroupChat'
 
-const UserChatsList = ({ refetch }) => {
+const UserChatsList = () => {
 
     const { createChat, token, setCreateChat, fetchChats, setFetchChats } = ChatState()
 
@@ -37,10 +37,9 @@ const UserChatsList = ({ refetch }) => {
 
     useEffect(() => {
         fetchChatofUsers()
-    }, [])
+    }, [fetchChats])
 
-    useEffect(() => {
-    }, [refetch, fetchChats])
+
     return (
         <>
             <div
@@ -86,13 +85,13 @@ const UserChatsList = ({ refetch }) => {
                     </Button>
                 </div>
                 <div className='scrollBar'>
-                    {loading ? <CircularProgress /> : null}
                     {
                         fetchChats ?
                             <>
                                 {fetchChats.map(chat => (
                                     <div
                                         key={chat._id}
+                                        onClick={() => setCreateChat(chat)}
                                         style={{
                                             backgroundColor: `${createChat === chat ? '#F73859' : 'inherit'}`,
                                             borderRadius: '4px',
@@ -102,7 +101,6 @@ const UserChatsList = ({ refetch }) => {
                                             opacity: '0.8',
                                             borderBottom: '2px solid #343A40',
                                         }}
-                                        onClick={() => setCreateChat(chat)}
                                     >
                                         <SingleChat
                                             key={chat._id}
