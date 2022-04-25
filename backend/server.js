@@ -43,11 +43,11 @@ io.on("connection", (socket) => {
 
     socket.on('join chat', (room) => {
         socket.join(room)
-        // console.log('joined user Id :', room)
+        console.log('joined user Id :', room)
     })
 
     socket.on('new message', (newMessageReceived) => {
-        // var chat = newMessageReceived.chat
+        var chat = newMessageReceived.chat
         console.log('new message received :', newMessageReceived);
         if (!chat.users) {
             return console.log('no users')
