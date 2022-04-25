@@ -114,7 +114,11 @@ const MessageBox = ({ refetch, setRefetch }) => {
                             }
                             <Button
                                 onClick={() => setOpenProfile(true)}
-                            ><i class="fa-solid fa-id-badge" style={{ fontSize: '2rem', color: '#FD5D5D' }}></i></Button>
+                            ><i class="fa-solid fa-id-badge"
+                                style={{
+                                    fontSize: '2rem',
+                                    color: '#FD5D5D'
+                                }}></i></Button>
                         </div>
                         <div >
                             {
@@ -130,7 +134,11 @@ const MessageBox = ({ refetch, setRefetch }) => {
                                         </div>
                                     )
                             }
-                            <form onKeyDown={sendMessage} style={{ marginTop: '5px' }}>
+                            <form
+                                onKeyDown={sendMessage}
+                                style={{
+                                    marginTop: '5px'
+                                }}>
                                 <input
                                     type="text"
                                     placeholder="Type your message"
@@ -158,9 +166,15 @@ const MessageBox = ({ refetch, setRefetch }) => {
                     )
             }
 
-            <Dialog open={openProfile} onClose={() => setOpenProfile(!openProfile)}>
-
-                <ProfileModel user={selectedUser} chatDetails={createChat} groupChat={createChat?.isGroupChat} />
+            <Dialog
+                open={openProfile}
+                onClose={() => setOpenProfile(!openProfile)}
+            >
+                <ProfileModel
+                    user={selectedUser}
+                    chatDetails={createChat}
+                    groupChat={createChat?.isGroupChat}
+                />
             </Dialog >
         </>
     )

@@ -28,16 +28,47 @@ const Startup = () => {
 
     return (
         <>
-            <div style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
-                <Box sx={{ width: '50%', typography: 'body1' }} className='logregister'>
+            <div
+                style={{
+                    display: 'flex',
+                    height: '100vh',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                <Box
+                    sx={{
+                        width: '50%',
+                        typography: 'body1'
+                    }}
+                    className='logregister'
+                >
                     <TabContext value={value} >
-                        <Box sx={{ borderBottom: 2, borderColor: 'divider' }} >
-                            <TabList onChange={handleChange} centered style={{
-                                width: '100%'
-                            }}>
-                                <Tab label="Login" value="1" style={{ width: '50%', fontSize: '1.5rem' }} />
+                        <Box
+                            sx={{
+                                borderBottom: 2,
+                                borderColor: 'divider'
+                            }} >
+                            <TabList
+                                onChange={handleChange}
+                                centered
+                                style={{
+                                    width: '100%'
+                                }}>
+                                <Tab
+                                    label="Login"
+                                    value="1"
+                                    style={{
+                                        width: '50%',
+                                        fontSize: '1.5rem'
+                                    }} />
 
-                                <Tab label="Register" value="2" style={{ width: '50%', fontSize: '1.5rem' }} />
+                                <Tab
+                                    label="Register"
+                                    value="2"
+                                    style={{
+                                        width: '50%',
+                                        fontSize: '1.5rem'
+                                    }} />
                             </TabList>
                         </Box>
                         <TabPanel value="1">{<Login />}</TabPanel>
