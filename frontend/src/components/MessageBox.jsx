@@ -6,7 +6,7 @@ import ChatBox from './ChatBox'
 import ProfileModel from './ProfileModel'
 import io from 'socket.io-client'
 
-const ENDPOINT = 'https://chat-app-chatty-mern.herokuapp.com/'
+const ENDPOINT = 'https://chat-app-realtime-mern.herokuapp.com/'
 var socket, selectedChatMatch
 
 const MessageBox = () => {
